@@ -1,0 +1,102 @@
+=== PART 1-B: SIMULATION 1 RESULTS ===
+
+Step 1 | Battleship Pos: (5212561418.50, 23241370891.45)
+
+Step 2 | Battleship Pos: (29894405957.21, 27690969573.05)
+
+Step 3 | Battleship Pos: (6114383373.52, 5177465132.60)
+
+Step 4 | Battleship Pos: (30646687215.80, 34286019470.81)
+
+Step 5 | Battleship Pos: (14168218024.23, 34322641682.18)
+
+Step 6 | Battleship Pos: (22837000640.89, 186162907.80)
+
+Step 7 | Battleship Pos: (45004119998.78, 38331247901.85)
+
+Step 8 | Battleship Pos: (24892422254.10, 40937528611.10)
+
+Step 9 | Battleship Pos: (14519180883.21, 6923123874.63)
+
+Step 10 | Battleship Pos: (30373546555.99, 12697225867.49)
+
+Step 11 | Battleship Pos: (18709372234.26, 33687856685.08)
+
+Step 12 | Battleship Pos: (38811914426.10, 976592303.23)
+
+Step 13 | Battleship Pos: (23728141117.59, 27121799371.32)
+
+Step 14 | Battleship Pos: (28839991454.82, 32505264442.88)
+
+Step 15 | Battleship Pos: (36526078066.35, 29975280007.32)
+
+Step 16 | Battleship Pos: (6408886989.96, 11804559465.32)
+
+Step 17 | Battleship Pos: (1359599597.16, 10956144901.88)
+
+Step 18 | Battleship Pos: (35934018982.51, 9048738059.63)
+
+Step 19 | Battleship Pos: (42512283700.06, 17860957670.83)
+
+Step 20 | Battleship Pos: (37137974181.34, 730918301.95)
+
+Step 21 | Battleship Pos: (48486281929.99, 6189153721.73)
+
+Step 22 | Battleship Pos: (5447553941.47, 39748832667.01)
+
+Step 23 | Battleship Pos: (18041016876.74, 32326731162.45)
+
+Step 24 | Battleship Pos: (38741721854.30, 6427198095.65)
+
+Step 25 | Battleship Pos: (13348796044.80, 25310525833.92)
+
+Step 26 | Battleship Pos: (28235724967.19, 17075106051.82)
+
+Step 27 | Battleship Pos: (40588091677.60, 26303903317.36)
+
+Step 28 | Battleship Pos: (46369823297.83, 41618091372.42)
+
+Step 29 | Battleship Pos: (3288369396.04, 9788811914.43)
+
+Step 30 | Battleship Pos: (39449751274.15, 6868190557.57)
+
+Step 31 | Battleship Pos: (48764000366.22, 25560777611.62)
+
+Step 32 | Battleship Pos: (7916501358.07, 37025055696.28)
+
+Step 33 | Battleship Pos: (2888576921.90, 25594347972.05)
+
+Step 34 | Battleship Pos: (32006286812.95, 7908871730.70)
+
+Step 35 | Battleship Pos: (13605151524.40, 14828943754.39)
+
+Step 36 | Battleship Pos: (25634022034.36, 16566972869.05)
+
+Step 37 | Battleship Pos: (48402356028.93, 39945677053.13)
+
+Step 38 | Battleship Pos: (26322214423.05, 42741172521.13)
+
+Step 39 | Battleship Pos: (16124454481.64, 5188146610.92)
+
+Step 40 | Battleship Pos: (3971984008.30, 3804132206.18)
+
+Step 41 | Battleship Pos: (8412427137.06, 29317606128.12)
+
+Step 42 | Battleship Pos: (46288949247.72, 29734183782.46)
+
+Step 43 | Battleship Pos: (31080050050.36, 32705160679.95)
+
+Step 44 | Battleship Pos: (3686635944.70, 9630115665.15)
+
+Step 45 | Battleship Pos: (20746482741.78, 18704794457.84)
+
+Step 46 | Battleship Pos: (1487777336.95, 36416211432.23)
+
+Step 47 | Battleship Pos: (17032380138.55, 38302255317.85)
+
+Step 48 | Battleship Pos: (2194280831.32, 1216162602.62)
+
+Step 49 | Battleship Pos: (35641041291.54, 2127140110.48)
+
+Step 50 | Battleship Pos: (25690481276.89, 14030884731.59)
+OUTCOME: Battleship SURVIVED all steps.

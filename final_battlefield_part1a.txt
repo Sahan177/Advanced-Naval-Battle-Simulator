@@ -1,0 +1,2 @@
+OUTCOME: Battleship SURVIVED
+Index	Time_to_Hit	distance
