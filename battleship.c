@@ -47,6 +47,54 @@ double calculate_range(double v, double theta_deg) {
     return (pow(v, 2) * sin(2 * theta_rad)) / GRAVITY;
 }
 
+
+void calculate_range_bounds(EscortShip *ship)
+{
+    double min_angle = ship->theta_L;
+    double max_angle = ship->theta_H;
+
+    double range_at_min_angle =
+        calculate_range(ship->v_max, min_angle);
+
+    double range_at_max_angle =
+        calculate_range(ship->v_max, max_angle);
+
+    double max_range = range_at_min_angle;
+
+    if (range_at_max_angle > max_range)
+    {
+        max_range = range_at_max_angle;
+    }
+
+    if (min_angle <= 45.0 && max_angle >= 45.0)
+    {
+        max_range = calculate_range(ship->v_max, 45.0);
+    }
+
+    double min_range = calculate_range(ship->v_min, min_angle);
+
+    double range_vmin_at_max_angle =
+        calculate_range(ship->v_min, max_angle);
+
+    if (range_vmin_at_max_angle < min_range)
+    {
+        min_range = range_vmin_at_max_angle;
+    }
+
+    if (min_angle <= 0.0 && max_angle >= 0.0)
+    {
+        min_range = 0.0;
+    }
+
+    if (min_angle <= 90.0 && max_angle >= 90.0)
+    {
+        min_range = 0.0;
+    }
+
+    ship->r_min = min_range;
+    ship->r_max = max_range;
+}
+
 void copy_escort_ships(EscortShip src[], EscortShip dest[], int count) {
     for (int i = 0; i < count; i++) {
         dest[i] = src[i];
@@ -59,7 +107,7 @@ void generate_escort_ships(EscortShip esc_ships[], int count, double canvas_d, d
     double angle_ranges[5] = {20.0, 30.0, 25.0, 50.0, 70.0};
 
     for (int i = 0; i < count; i++) {
-        esc_ships[i].id = i;
+        esc_ships[i].id = i + 1;
         int type_idx = rand() % 5;
         esc_ships[i].type_code = types[type_idx];
         esc_ships[i].impact_power = impact_powers[type_idx];
@@ -78,8 +126,8 @@ void generate_escort_ships(EscortShip esc_ships[], int count, double canvas_d, d
         }
         esc_ships[i].v_min = ((double)rand() / RAND_MAX) * esc_ships[i].v_max;
 
-        esc_ships[i].r_min = calculate_range(esc_ships[i].v_min, esc_ships[i].theta_L);
-        esc_ships[i].r_max = calculate_range(esc_ships[i].v_max, esc_ships[i].theta_H);
+        calculate_range_bounds(&esc_ships[i]);
+
         esc_ships[i].is_destroyed = 0;
     }
 }

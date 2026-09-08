@@ -1,2 +1,7 @@
 OUTCOME: Battleship SURVIVED
 Index	Time_to_Hit	distance
+1	0.0s		300.80
+2	0.0s		823.16
+3	0.0s		211.49
+4	0.0s		662.80
+5	0.0s		182.21
