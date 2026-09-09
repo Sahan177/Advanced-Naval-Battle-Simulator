@@ -1,3 +1,112 @@
-=== PART 1-C: SIMULATION 1 (Cumulative Damage) ===
-OUTCOME: SURVIVED
-Final Cumulative Damage: 0.00%
+=== PART 1-C: PATH CUMULATIVE DAMAGE ===
+
+Step 1 | Battleship Position: (488.44, 22.75)
+ -> Escort ID 1 hit Battleship | Impact: 6.00% | Cumulative Damage: 6.00%
+ -> Escort ID 4 hit Battleship | Impact: 5.00% | Cumulative Damage: 11.00%
+ -> Escort ID 5 hit Battleship | Impact: 8.00% | Cumulative Damage: 19.00%
+ -> Battleship destroyed Escort ID 1
+ -> Battleship destroyed Escort ID 2
+ -> Battleship destroyed Escort ID 3
+ -> Battleship destroyed Escort ID 4
+ -> Battleship destroyed Escort ID 5
+
+Step 2 | Battleship Position: (437.14, 79.31)
+
+Step 3 | Battleship Position: (281.94, 487.73)
+
+Step 4 | Battleship Position: (320.78, 351.20)
+
+Step 5 | Battleship Position: (157.31, 243.25)
+
+Step 6 | Battleship Position: (276.75, 337.12)
+
+Step 7 | Battleship Position: (160.58, 301.02)
+
+Step 8 | Battleship Position: (9.00, 291.02)
+
+Step 9 | Battleship Position: (472.59, 242.30)
+
+Step 10 | Battleship Position: (147.56, 79.20)
+
+Step 11 | Battleship Position: (313.94, 446.33)
+
+Step 12 | Battleship Position: (16.74, 278.56)
+
+Step 13 | Battleship Position: (425.54, 28.28)
+
+Step 14 | Battleship Position: (172.59, 340.73)
+
+Step 15 | Battleship Position: (487.03, 360.43)
+
+Step 16 | Battleship Position: (372.79, 475.48)
+
+Step 17 | Battleship Position: (383.18, 309.94)
+
+Step 18 | Battleship Position: (54.79, 165.12)
+
+Step 19 | Battleship Position: (297.67, 375.56)
+
+Step 20 | Battleship Position: (16.32, 454.97)
+
+Step 21 | Battleship Position: (118.81, 293.07)
+
+Step 22 | Battleship Position: (292.10, 279.39)
+
+Step 23 | Battleship Position: (94.09, 301.10)
+
+Step 24 | Battleship Position: (70.41, 66.69)
+
+Step 25 | Battleship Position: (43.40, 217.98)
+
+Step 26 | Battleship Position: (145.89, 357.33)
+
+Step 27 | Battleship Position: (164.31, 162.63)
+
+Step 28 | Battleship Position: (135.89, 89.84)
+
+Step 29 | Battleship Position: (190.91, 308.48)
+
+Step 30 | Battleship Position: (430.57, 177.95)
+
+Step 31 | Battleship Position: (168.91, 303.37)
+
+Step 32 | Battleship Position: (153.42, 52.09)
+
+Step 33 | Battleship Position: (113.30, 208.21)
+
+Step 34 | Battleship Position: (217.21, 410.97)
+
+Step 35 | Battleship Position: (83.77, 233.54)
+
+Step 36 | Battleship Position: (365.94, 202.59)
+
+Step 37 | Battleship Position: (26.61, 158.04)
+
+Step 38 | Battleship Position: (481.98, 120.70)
+
+Step 39 | Battleship Position: (459.14, 52.39)
+
+Step 40 | Battleship Position: (187.39, 2.54)
+
+Step 41 | Battleship Position: (270.37, 333.28)
+
+Step 42 | Battleship Position: (359.87, 434.68)
+
+Step 43 | Battleship Position: (495.91, 495.76)
+
+Step 44 | Battleship Position: (24.52, 186.82)
+
+Step 45 | Battleship Position: (304.24, 455.09)
+
+Step 46 | Battleship Position: (364.76, 473.15)
+
+Step 47 | Battleship Position: (258.46, 18.19)
+
+Step 48 | Battleship Position: (25.24, 371.76)
+
+Step 49 | Battleship Position: (226.40, 242.45)
+
+Step 50 | Battleship Position: (282.73, 310.17)
+
+OUTCOME: Battleship SURVIVED
+Final Cumulative Damage: 19.00%

@@ -1,2 +1,20 @@
 === PART 2-B: ESCORT CONTINUOUS FIRING SIMULATION ===
-OUTCOME: Battleship SURVIVED | Final Damage: 0.00%
+[Time 0.00s] Escort ID 1 FIRED! Damage: +6.00% (Total: 6.00%)
+[Time 0.00s] Escort ID 4 FIRED! Damage: +5.00% (Total: 11.00%)
+[Time 0.00s] Battleship DESTROYED Escort ID 3
+[Time 4.00s] Escort ID 1 FIRED! Damage: +6.00% (Total: 17.00%)
+[Time 6.00s] Escort ID 4 FIRED! Damage: +5.00% (Total: 22.00%)
+[Time 8.00s] Escort ID 1 FIRED! Damage: +6.00% (Total: 28.00%)
+[Time 10.00s] Battleship DESTROYED Escort ID 5
+[Time 12.00s] Escort ID 1 FIRED! Damage: +6.00% (Total: 34.00%)
+[Time 12.00s] Escort ID 4 FIRED! Damage: +5.00% (Total: 39.00%)
+[Time 16.00s] Escort ID 1 FIRED! Damage: +6.00% (Total: 45.00%)
+[Time 18.00s] Escort ID 4 FIRED! Damage: +5.00% (Total: 50.00%)
+[Time 20.00s] Escort ID 1 FIRED! Damage: +6.00% (Total: 56.00%)
+[Time 20.00s] Battleship DESTROYED Escort ID 1
+[Time 24.00s] Escort ID 4 FIRED! Damage: +5.00% (Total: 61.00%)
+[Time 30.00s] Escort ID 4 FIRED! Damage: +5.00% (Total: 66.00%)
+[Time 30.00s] Battleship DESTROYED Escort ID 2
+[Time 36.00s] Escort ID 4 FIRED! Damage: +5.00% (Total: 71.00%)
+[Time 40.00s] Battleship DESTROYED Escort ID 4
+OUTCOME: Battleship SURVIVED | Final Damage: 71.00%

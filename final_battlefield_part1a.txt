@@ -1,5 +1,5 @@
 OUTCOME: Battleship SANK
-Destroyed by Escort Ship ID: 5
-Flight Time: 7.00 seconds
-Firing Velocity: 62.32 m/s
-Firing Angle: 33.43 degrees
+Destroyed by Escort Ship ID: 1
+Flight Time: 6.40 seconds
+Firing Velocity: 64.77 m/s
+Firing Angle: 28.98 degrees

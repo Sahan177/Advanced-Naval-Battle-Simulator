@@ -1,6 +1,35 @@
 === PART 2-C: IMPACT POWER DEGRADATION ===
 
-Escort ID 5 | Type E_A | Gamma 0.100 | Firing Count 1 | Current Impact 8.00% | Total Damage 8.00%
+Target Escort ID 1 (Type E_B)
+Attack 1 | Time 10.00s | Impact: 40.00% | Gamma: 0.001 | Cumulative Escort Damage: 40.00%
+Attack 2 | Time 20.00s | Impact: 39.96% | Gamma: 0.001 | Cumulative Escort Damage: 79.96%
+Attack 3 | Time 30.00s | Impact: 39.92% | Gamma: 0.001 | Cumulative Escort Damage: 100.00%
+Escort ID 1 DESTROYED after 3 attacks.
+
+Target Escort ID 2 (Type E_B)
+Attack 1 | Time 40.00s | Impact: 40.00% | Gamma: 0.001 | Cumulative Escort Damage: 40.00%
+Attack 2 | Time 50.00s | Impact: 39.96% | Gamma: 0.001 | Cumulative Escort Damage: 79.96%
+Attack 3 | Time 60.00s | Impact: 39.92% | Gamma: 0.001 | Cumulative Escort Damage: 100.00%
+Escort ID 2 DESTROYED after 3 attacks.
+
+Target Escort ID 3 (Type E_A)
+Attack 1 | Time 70.00s | Impact: 40.00% | Gamma: 0.001 | Cumulative Escort Damage: 40.00%
+Attack 2 | Time 80.00s | Impact: 39.96% | Gamma: 0.001 | Cumulative Escort Damage: 79.96%
+Attack 3 | Time 90.00s | Impact: 39.92% | Gamma: 0.001 | Cumulative Escort Damage: 100.00%
+Escort ID 3 DESTROYED after 3 attacks.
+
+Target Escort ID 4 (Type E_D)
+Attack 1 | Time 100.00s | Impact: 40.00% | Gamma: 0.001 | Cumulative Escort Damage: 40.00%
+Attack 2 | Time 110.00s | Impact: 39.96% | Gamma: 0.001 | Cumulative Escort Damage: 79.96%
+Attack 3 | Time 120.00s | Impact: 39.92% | Gamma: 0.001 | Cumulative Escort Damage: 100.00%
+Escort ID 4 DESTROYED after 3 attacks.
+
+Target Escort ID 5 (Type E_A)
+Attack 1 | Time 130.00s | Impact: 40.00% | Gamma: 0.001 | Cumulative Escort Damage: 40.00%
+Attack 2 | Time 140.00s | Impact: 39.96% | Gamma: 0.001 | Cumulative Escort Damage: 79.96%
+Attack 3 | Time 150.00s | Impact: 39.92% | Gamma: 0.001 | Cumulative Escort Damage: 100.00%
+Escort ID 5 DESTROYED after 3 attacks.
+
 
 OUTCOME: Battleship SURVIVED
-Final Cumulative Damage: 8.00%
+All reachable Escort Ships processed.
