@@ -43,6 +43,22 @@ typedef struct {
     double impact_power;     // Added for Part 2
 } Battleship;
 
+typedef struct {
+    double canvas_d;
+    int num_escorts;
+    unsigned int seed;
+
+    Battleship b;
+    EscortShip *esc_ships;
+
+    int k;
+    int t;
+    double theta_min;
+
+    int setup_complete;
+} SimulationData;
+
+
 // ==========================================
 // HELPER FUNCTIONS
 // ==========================================
@@ -134,7 +150,7 @@ void calculate_range_bounds(EscortShip *ship) {
     double range_vmin_at_max_angle = calculate_range(ship->v_min, max_angle);
 
     if (range_vmin_at_max_angle < min_range) {
-	    min_range = range_vmin_at_max_angle;
+        min_range = range_vmin_at_max_angle;
     }
 
     if (min_angle <= 0.0 && max_angle >= 0.0) {
@@ -447,8 +463,21 @@ void run_part_1b_simulations(Battleship b, EscortShip initial_escs[], int num_es
         for (int i = 0; i < num_escorts; i++) {
             if (escs_sim1[i].is_destroyed) continue;
 
-            double dist = get_distance(b.pos, escs_sim1[i].pos);
-            if (dist >= escs_sim1[i].r_min && dist <= escs_sim1[i].r_max) {
+            double firing_velocity;
+            double firing_angle;
+
+            int can_hit = can_hit_target(
+             escs_sim1[i].pos,
+             b.pos,
+             escs_sim1[i].v_min,
+             escs_sim1[i].v_max,
+             escs_sim1[i].theta_L,
+             escs_sim1[i].theta_H,
+             &firing_velocity,
+             &firing_angle
+           );
+
+            if (can_hit) {
                 printf("Step %d: Battleship SANK at (%.2f, %.2f) by Escort ID %d!\n", 
                        step + 1, b.pos.x, b.pos.y, escs_sim1[i].id);
                 fprintf(f1, "OUTCOME: Battleship SANK by Escort ID %d\n", escs_sim1[i].id);
@@ -456,17 +485,32 @@ void run_part_1b_simulations(Battleship b, EscortShip initial_escs[], int num_es
                 break;
             }
         }
+        
 
         if (b_sunk_sim1) break;
 
         for (int i = 0; i < num_escorts; i++) {
             if (escs_sim1[i].is_destroyed) continue;
 
-            double dist = get_distance(b.pos, escs_sim1[i].pos);
-            if (dist <= b.r_max) {
+            double firing_velocity;
+            double firing_angle;
+
+            int can_hit = can_hit_target(
+             b.pos,
+            escs_sim1[i].pos,
+            0.0,
+            b.v_max,
+            0.0,
+            90.0,
+            &firing_velocity,
+            &firing_angle
+            );
+
+            if (can_hit){
                 escs_sim1[i].is_destroyed = 1;
                 printf("Step %d: Escort ID %d destroyed!\n", step + 1, escs_sim1[i].id);
-                fprintf(f1, " -> Destroyed Escort ID %d at dist %.2f\n", escs_sim1[i].id, dist);
+                fprintf(f1, " -> Destroyed Escort ID %d at dist %.2f\n", escs_sim1[i].id, 
+                get_distance(b.pos, escs_sim1[i].pos));
             }
         }
     }
@@ -488,17 +532,19 @@ void run_part_1b_simulations(Battleship b, EscortShip initial_escs[], int num_es
     for (int step = 0; step < k; step++) {
         b.pos.x = path[step].x;
         b.pos.y = path[step].y;
+    
 
-        double current_r_min = 0.0;
+        
         double current_r_max = b.r_max;
+        double minimum_angle = 0.0;
 
-if (step >= t)
-{
-    current_r_max = calculate_range(b.v_max, 45.0);
-}
+        if (step >= t) {
+         minimum_angle = theta_min;
+        
+    }
 
-        fprintf(f2, "\nStep %d | Pos: (%.2f, %.2f) | Range: [%.2f, %.2f]\n", 
-                step + 1, b.pos.x, b.pos.y, current_r_min, b.r_max);
+fprintf(f2, "\nStep %d | Pos: (%.2f, %.2f) | Minimum Angle: %.2f\n",
+        step + 1, b.pos.x, b.pos.y, minimum_angle);
 
         for (int i = 0; i < num_escorts; i++) {
             if (escs_sim2[i].is_destroyed) continue;
@@ -507,23 +553,30 @@ if (step >= t)
             double firing_angle;
 
             int can_hit = can_hit_target(
-              b.pos,
-              escs_sim2[i].pos,
-              0.0,
-              b.v_max,
-              (step >= t) ? theta_min : 0.0,
-              90.0,
-              &firing_velocity,
-              &firing_angle
-           );
+    escs_sim2[i].pos,
+    b.pos,
+    escs_sim2[i].v_min,
+    escs_sim2[i].v_max,
+    escs_sim2[i].theta_L,
+    escs_sim2[i].theta_H,
+    &firing_velocity,
+    &firing_angle
+    );
 
-           if (can_hit){
-                printf("Step %d: Battleship SANK at (%.2f, %.2f) by Escort ID %d!\n", 
-                       step + 1, b.pos.x, b.pos.y, escs_sim2[i].id);
-                fprintf(f2, "OUTCOME: Battleship SANK by Escort ID %d\n", escs_sim2[i].id);
-                b_sunk_sim2 = 1;
-                break;
-            }
+if (can_hit) {
+    printf("Step %d: Battleship SANK at (%.2f, %.2f) by Escort ID %d!\n",
+           step + 1, b.pos.x, b.pos.y, escs_sim2[i].id);
+
+    fprintf(f2,
+            "OUTCOME: Battleship SANK by Escort ID %d | "
+            "Velocity: %.2f | Angle: %.2f\n",
+            escs_sim2[i].id,
+            firing_velocity,
+            firing_angle);
+
+    b_sunk_sim2 = 1;
+    break;
+}
         }
 
         if (b_sunk_sim2) break;
@@ -531,12 +584,34 @@ if (step >= t)
         for (int i = 0; i < num_escorts; i++) {
             if (escs_sim2[i].is_destroyed) continue;
 
-            double dist = get_distance(b.pos, escs_sim2[i].pos);
-            if (dist >= current_r_min && dist <= b.r_max) {
-                escs_sim2[i].is_destroyed = 1;
-                printf("Step %d: Escort ID %d destroyed!\n", step + 1, escs_sim2[i].id);
-                fprintf(f2, " -> Destroyed Escort ID %d at dist %.2f\n", escs_sim2[i].id, dist);
-            }
+            double firing_velocity;
+            double firing_angle;
+
+            int can_hit = can_hit_target(
+    b.pos,
+    escs_sim2[i].pos,
+    0.0,
+    b.v_max,
+    minimum_angle,
+    90.0,
+    &firing_velocity,
+    &firing_angle
+);
+
+if (can_hit) {
+    escs_sim2[i].is_destroyed = 1;
+
+    printf("Step %d: Escort ID %d destroyed!\n",
+           step + 1, escs_sim2[i].id);
+
+    fprintf(f2,
+            " -> Destroyed Escort ID %d | "
+            "Distance: %.2f | Velocity: %.2f | Angle: %.2f\n",
+            escs_sim2[i].id,
+            get_distance(b.pos, escs_sim2[i].pos),
+            firing_velocity,
+            firing_angle);
+}
         }
     }
     if (!b_sunk_sim2) {
@@ -639,9 +714,22 @@ void run_part_1c_simulation_B(Battleship b, EscortShip initial_escs[], int num_e
         for (int i = 0; i < num_escorts; i++) {
             if (escs_sim1[i].is_destroyed) continue;
 
-            double dist = get_distance(b.pos, escs_sim1[i].pos);
-            if (dist >= escs_sim1[i].r_min && dist <= escs_sim1[i].r_max) {
-                b_damage += escs_sim1[i].impact_power;
+            double firing_velocity;
+            double firing_angle;
+
+            int can_hit = can_hit_target(
+    escs_sim1[i].pos,
+    b.pos,
+    escs_sim1[i].v_min,
+    escs_sim1[i].v_max,
+    escs_sim1[i].theta_L,
+    escs_sim1[i].theta_H,
+    &firing_velocity,
+    &firing_angle
+);
+
+if (can_hit) {
+    b_damage += escs_sim1[i].impact_power;
                 if (b_damage >= 1.0) {
                     b_sunk = 1;
                     fprintf(f1, "Step %d: Battleship SANK! Damage reached 100%%\n", step + 1);
@@ -655,10 +743,23 @@ void run_part_1c_simulation_B(Battleship b, EscortShip initial_escs[], int num_e
         for (int i = 0; i < num_escorts; i++) {
             if (escs_sim1[i].is_destroyed) continue;
 
-            double dist = get_distance(b.pos, escs_sim1[i].pos);
-            if (dist <= b.r_max) {
-                escs_sim1[i].is_destroyed = 1;
-            }
+            double firing_velocity;
+            double firing_angle;
+
+            int can_hit = can_hit_target(
+    b.pos,
+    escs_sim1[i].pos,
+    0.0,
+    b.v_max,
+    0.0,
+    90.0,
+    &firing_velocity,
+    &firing_angle
+);
+
+if (can_hit) {
+    escs_sim1[i].is_destroyed = 1;
+}
         }
     }
 
@@ -691,10 +792,23 @@ void run_part_2a_simulation(Battleship b, EscortShip initial_escs[], int count) 
     int target_count = 0;
 
     for (int i = 0; i < count; i++) {
-        double dist = get_distance(b.pos, escs[i].pos);
-        if (dist <= b.r_max) {
-            in_range_indices[target_count++] = i;
-        }
+        double firing_velocity;
+        double firing_angle;
+
+        int can_hit = can_hit_target(
+    b.pos,
+    escs[i].pos,
+    0.0,
+    b.v_max,
+    0.0,
+    90.0,
+    &firing_velocity,
+    &firing_angle
+);
+
+if (can_hit) {
+    in_range_indices[target_count++] = i;
+}
     }
 
     for (int i = 0; i < target_count - 1; i++) {
@@ -709,17 +823,30 @@ void run_part_2a_simulation(Battleship b, EscortShip initial_escs[], int count) 
         }
     }
 
-    printf("Calculated Optimal Attack Sequence (%d targets in range):\n", target_count);
-    fprintf(f_out, "Optimal Target Order:\n");
+    printf("Calculated Attack Strategy (%d targets in range):\n", target_count);
+    fprintf(f_out, "Calculated Target Order:\n");
 
     double time_passed = 0.0;
     double cumulative_b_damage = 0.0;
 
     for (int i = 0; i < count; i++) {
-        double dist = get_distance(b.pos, escs[i].pos);
-        if (dist >= escs[i].r_min && dist <= escs[i].r_max) {
-            cumulative_b_damage += escs[i].impact_power;
-        }
+        double firing_velocity;
+        double firing_angle;
+
+        int can_hit = can_hit_target(
+    escs[i].pos,
+    b.pos,
+    escs[i].v_min,
+    escs[i].v_max,
+    escs[i].theta_L,
+    escs[i].theta_H,
+    &firing_velocity,
+    &firing_angle
+);
+
+if (can_hit) {
+    cumulative_b_damage += escs[i].impact_power;
+}
     }
 
     for (int i = 0; i < target_count; i++) {
@@ -763,8 +890,21 @@ void run_part_2b_simulation(Battleship b, EscortShip initial_escs[], int count) 
         for (int i = 0; i < count; i++) {
             if (escs[i].is_destroyed) continue;
 
-            double dist = get_distance(b.pos, escs[i].pos);
-            if (dist >= escs[i].r_min && dist <= escs[i].r_max) {
+            double firing_velocity;
+            double firing_angle;
+
+            int can_hit = can_hit_target(
+    escs[i].pos,
+    b.pos,
+    escs[i].v_min,
+    escs[i].v_max,
+    escs[i].theta_L,
+    escs[i].theta_H,
+    &firing_velocity,
+    &firing_angle
+    );
+
+if (can_hit){
                 if (current_time >= escs[i].next_fire_time) {
                     b_damage += escs[i].impact_power;
                     escs[i].next_fire_time = current_time + escs[i].reload_time;
@@ -789,8 +929,21 @@ void run_part_2b_simulation(Battleship b, EscortShip initial_escs[], int count) 
 
             for (int i = 0; i < count; i++) {
                 if (escs[i].is_destroyed) continue;
-                double dist = get_distance(b.pos, escs[i].pos);
-                if (dist <= b.r_max) {
+                double firing_velocity;
+                double firing_angle;
+
+                int can_hit = can_hit_target(
+    b.pos,
+    escs[i].pos,
+    0.0,
+    b.v_max,
+    0.0,
+    90.0,
+    &firing_velocity,
+    &firing_angle
+);
+
+if (can_hit)   { 
                     if (escs[i].impact_power > max_impact) {
                         max_impact = escs[i].impact_power;
                         best_target_idx = i;
@@ -947,26 +1100,256 @@ void run_part_2c_simulation(Battleship b,
 
     fclose(f_out);
 }
+void main_menu(SimulationData *sim);
+void setup_menu(SimulationData *sim);
+void start_simulation_menu(SimulationData *sim);
+void instructions_menu(void);
+void statistics_menu(void);
+void battleship_properties(SimulationData *sim);
+void escort_settings(SimulationData *sim);
+void seed_settings(SimulationData *sim);
+void initialize_simulation(SimulationData *sim);
+void show_file(const char *filename);
+void run_all_simulations(SimulationData *sim);
 
-// ==========================================
-// MAIN FUNCTION
-// ==========================================
-int main() {
-    srand(time(NULL));
+void main_menu(SimulationData *sim)
+{
+    int choice;
+    char confirm;
 
-    double canvas_d;
-    int num_escorts;
-    char b_type;
+    do
+    {
+        printf("\n");
+        printf("====================================\n");
+        printf("        ADVANCED NAVAL BATTLE       \n");
+        printf("====================================\n");
+        printf("1. Start Simulation\n");
+        printf("2. View Instructions\n");
+        printf("3. Simulation Statistics\n");
+        printf("4. Exit\n");
+        printf("====================================\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
 
+        switch (choice)
+        {
+            case 1:
+                start_simulation_menu(sim);
+                break;
+
+            case 2:
+                instructions_menu();
+                break;
+
+            case 3:
+                statistics_menu();
+                break;
+
+            case 4:
+                printf("\nAre you sure you want to exit? (Y/N): ");
+                scanf(" %c", &confirm);
+
+                if (confirm == 'Y' || confirm == 'y')
+                {
+                    printf("\nExiting Advanced Naval Battle Simulator...\n");
+                    return;
+                }
+                break;
+
+            default:
+                printf("\nInvalid choice. Please try again.\n");
+        }
+
+    } while (1);
+}
+
+void start_simulation_menu(SimulationData *sim)
+{
+    int choice;
+
+    do
+    {
+        printf("\n");
+        printf("====================================\n");
+        printf("          START SIMULATION           \n");
+        printf("====================================\n");
+        printf("1. Setup Simulation\n");
+        printf("2. Run All Simulations\n");
+        printf("3. Run Part 1-A\n");
+        printf("4. Run Part 1-B\n");
+        printf("5. Run Part 1-C\n");
+        printf("6. Run Part 2-A\n");
+        printf("7. Run Part 2-B\n");
+        printf("8. Run Part 2-C\n");
+        printf("9. Return to Main Menu\n");
+        printf("====================================\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                setup_menu(sim);
+                break;
+
+            case 2:
+                if (!sim->setup_complete)
+                {
+                    printf("\nPlease complete the setup first.\n");
+                }
+                else
+                {
+                    run_all_simulations(sim);
+                }
+                break;
+
+            case 3:
+                if (!sim->setup_complete)
+                    printf("\nPlease complete the setup first.\n");
+                else
+                    run_part_1a_simulation(
+                        sim->b,
+                        sim->esc_ships,
+                        sim->num_escorts
+                    );
+                break;
+
+            case 4:
+                if (!sim->setup_complete)
+                    printf("\nPlease complete the setup first.\n");
+                else
+                    run_part_1b_simulations(
+                        sim->b,
+                        sim->esc_ships,
+                        sim->num_escorts,
+                        sim->canvas_d,
+                        &sim->k,
+                        &sim->t,
+                        &sim->theta_min
+                    );
+                break;
+
+            case 5:
+                if (!sim->setup_complete)
+                    printf("\nPlease complete the setup first.\n");
+                else
+                {
+                    run_part_1c_simulation_A(
+                        sim->b,
+                        sim->esc_ships,
+                        sim->num_escorts
+                    );
+
+                    run_part_1c_simulation_B(
+                        sim->b,
+                        sim->esc_ships,
+                        sim->num_escorts,
+                        sim->canvas_d,
+                        sim->k,
+                        sim->t,
+                        sim->theta_min
+                    );
+                }
+                break;
+
+            case 6:
+                if (!sim->setup_complete)
+                    printf("\nPlease complete the setup first.\n");
+                else
+                    run_part_2a_simulation(
+                        sim->b,
+                        sim->esc_ships,
+                        sim->num_escorts
+                    );
+                break;
+
+            case 7:
+                if (!sim->setup_complete)
+                    printf("\nPlease complete the setup first.\n");
+                else
+                    run_part_2b_simulation(
+                        sim->b,
+                        sim->esc_ships,
+                        sim->num_escorts
+                    );
+                break;
+
+            case 8:
+                if (!sim->setup_complete)
+                    printf("\nPlease complete the setup first.\n");
+                else
+                    run_part_2c_simulation(
+                        sim->b,
+                        sim->esc_ships,
+                        sim->num_escorts
+                    );
+                break;
+
+            case 9:
+                return;
+
+            default:
+                printf("\nInvalid choice.\n");
+        }
+
+    } while (1);
+}
+
+void setup_menu(SimulationData *sim)
+{
+    int choice;
+
+    do
+    {
+        printf("\n");
+        printf("====================================\n");
+        printf("           SIMULATION SETUP          \n");
+        printf("====================================\n");
+        printf("1. Battleship Properties\n");
+        printf("2. Escort Ship Settings\n");
+        printf("3. Random Seed\n");
+        printf("4. Return\n");
+        printf("====================================\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                battleship_properties(sim);
+                break;
+
+            case 2:
+                escort_settings(sim);
+                break;
+
+            case 3:
+                seed_settings(sim);
+                break;
+
+            case 4:
+                return;
+
+            default:
+                printf("\nInvalid choice.\n");
+        }
+
+    } while (1);
+}
+
+void battleship_properties(SimulationData *sim)
+{
+    char type;
+
+    printf("\n====================================\n");
+    printf("       BATTLESHIP PROPERTIES        \n");
     printf("====================================\n");
-    printf("        ADVANCED NAVAL BATTLE        \n");
-    printf("====================================\n\n");
 
     printf("Enter battlefield dimension: ");
-    scanf("%lf", &canvas_d);
+    scanf("%lf", &sim->canvas_d);
 
     printf("Enter number of Escort ships: ");
-    scanf("%d", &num_escorts);
+    scanf("%d", &sim->num_escorts);
 
     printf("\nChoose Battleship type:\n");
     printf("U - USS Iowa\n");
@@ -974,44 +1357,388 @@ int main() {
     printf("R - Richelieu\n");
     printf("S - Sovetsky Soyuz-class\n");
     printf("Enter choice: ");
-    scanf(" %c", &b_type);
+    scanf(" %c", &type);
 
-    Battleship b;
-    b.type_code = b_type;
-    b.pos.x = ((double)rand() / RAND_MAX) * canvas_d;
-    b.pos.y = ((double)rand() / RAND_MAX) * canvas_d;
-    b.v_max = 500.0; 
-    b.r_max = calculate_range(b.v_max, 45.0);
-    b.reload_time = 10.0;
+    if (type >= 'a' && type <= 'z')
+        type = type - 'a' + 'A';
 
-    printf("\nBattleship created!\n");
-    printf("Battleship type: %c\n", b.type_code);
-    printf("Battleship position: (%.2f, %.2f)\n", b.pos.x, b.pos.y);
+    sim->b.type_code = type;
 
-    EscortShip esc_ships[num_escorts];
-    generate_escort_ships(esc_ships, num_escorts, canvas_d, b.v_max);
+    sim->b.pos.x =
+        ((double)rand() / RAND_MAX) * sim->canvas_d;
 
-    save_initial_conditions(b, esc_ships, num_escorts);
-    printf("\nInitial state saved to 'initial_battlefield.txt'.\n");
+    sim->b.pos.y =
+        ((double)rand() / RAND_MAX) * sim->canvas_d;
 
-    // Execute Part 1-A
-    run_part_1a_simulation(b, esc_ships, num_escorts);
-    printf("Part 1-A state saved to 'final_battlefield_part1a.txt'.\n");
+    sim->b.v_max = 500.0;
 
-    // Execute Part 1-B & capture path inputs
-    int k = 0, t = 0;
-    double theta_min = 0.0;
-    run_part_1b_simulations(b, esc_ships, num_escorts, canvas_d, &k, &t, &theta_min);
+    sim->b.r_max =
+        calculate_range(sim->b.v_max, 45.0);
 
-    // Execute Part 1-C
-    run_part_1c_simulation_A(b, esc_ships, num_escorts);
-    run_part_1c_simulation_B(b, esc_ships, num_escorts, canvas_d, k, t, theta_min);
+    sim->b.reload_time = 10.0;
 
-    // Execute Part 2-A & Part 2-B
-    run_part_2a_simulation(b, esc_ships, num_escorts);
-    run_part_2b_simulation(b, esc_ships, num_escorts);
-    run_part_2c_simulation(b, esc_ships, num_escorts);
+    sim->b.gamma = 0.001;
+
+    sim->b.firing_count = 0;
+
+    sim->b.impact_power = 1.0;
+
+    printf("\nBattleship configured successfully!\n");
+    printf("Type: %c\n", sim->b.type_code);
+    printf("Position: (%.2f, %.2f)\n",
+           sim->b.pos.x,
+           sim->b.pos.y);
+    printf("Maximum velocity: %.2f m/s\n",
+           sim->b.v_max);
+    printf("Reload time: %.2f seconds\n",
+           sim->b.reload_time);
+}
+
+void escort_settings(SimulationData *sim)
+{
+    int i;
+
+    if (sim->esc_ships == NULL)
+    {
+        printf("\nEscort ships have not been generated yet.\n");
+        printf("Configure Battleship Properties first.\n");
+        return;
+    }
+
+    printf("\n====================================\n");
+    printf("          ESCORT SHIP SETTINGS       \n");
+    printf("====================================\n");
+
+    for (i = 0; i < sim->num_escorts; i++)
+    {
+        printf("\nEscort ID: %d\n", sim->esc_ships[i].id);
+        printf("Type: E%c\n", sim->esc_ships[i].type_code);
+        printf("Velocity: %.2f - %.2f m/s\n",
+               sim->esc_ships[i].v_min,
+               sim->esc_ships[i].v_max);
+        printf("Angle: %.2f - %.2f degrees\n",
+               sim->esc_ships[i].theta_L,
+               sim->esc_ships[i].theta_H);
+        printf("Impact Power: %.2f\n",
+               sim->esc_ships[i].impact_power);
+        printf("Gamma: %.2f\n",
+               sim->esc_ships[i].gamma);
+        printf("Reload Time: %.2f seconds\n",
+               sim->esc_ships[i].reload_time);
+                   initialize_simulation(sim);
+    }
+
+}
+
+void seed_settings(SimulationData *sim)
+{
+    unsigned int seed;
+
+    printf("\n====================================\n");
+    printf("            RANDOM SEED              \n");
+    printf("====================================\n");
+
+    printf("Enter random seed: ");
+    scanf("%u", &seed);
+
+    sim->seed = seed;
+
+    srand(sim->seed);
+
+    printf("\nRandom seed updated to %u.\n", sim->seed);
+}
+
+void initialize_simulation(SimulationData *sim)
+{
+    if (sim->esc_ships != NULL)
+    {
+        free(sim->esc_ships);
+        sim->esc_ships = NULL;
+    }
+
+    sim->esc_ships =
+        malloc(sim->num_escorts * sizeof(EscortShip));
+
+    if (sim->esc_ships == NULL)
+    {
+        printf("\nMemory allocation failed!\n");
+        sim->setup_complete = 0;
+        return;
+    }
+
+    generate_escort_ships(
+        sim->esc_ships,
+        sim->num_escorts,
+        sim->canvas_d,
+        sim->b.v_max
+    );
+
+    save_initial_conditions(
+        sim->b,
+        sim->esc_ships,
+        sim->num_escorts
+    );
+
+    sim->k = 0;
+    sim->t = 0;
+    sim->theta_min = 0.0;
+
+    sim->setup_complete = 1;
+
+    printf("\n====================================\n");
+    printf("       SIMULATION READY!             \n");
+    printf("====================================\n");
+    printf("Battlefield: %.2f x %.2f\n",
+           sim->canvas_d,
+           sim->canvas_d);
+    printf("Escort ships: %d\n", sim->num_escorts);
+    printf("Battleship: %c\n", sim->b.type_code);
+    printf("Initial conditions saved.\n");
+}
+
+void run_all_simulations(SimulationData *sim)
+{
+    printf("\n====================================\n");
+    printf("       RUNNING ALL SIMULATIONS       \n");
+    printf("====================================\n");
+
+    printf("\n--- PART 1-A ---\n");
+
+    run_part_1a_simulation(
+        sim->b,
+        sim->esc_ships,
+        sim->num_escorts
+    );
+
+    printf("\n--- PART 1-B ---\n");
+
+    run_part_1b_simulations(
+        sim->b,
+        sim->esc_ships,
+        sim->num_escorts,
+        sim->canvas_d,
+        &sim->k,
+        &sim->t,
+        &sim->theta_min
+    );
+
+    printf("\n--- PART 1-C ---\n");
+
+    run_part_1c_simulation_A(
+        sim->b,
+        sim->esc_ships,
+        sim->num_escorts
+    );
+
+    run_part_1c_simulation_B(
+        sim->b,
+        sim->esc_ships,
+        sim->num_escorts,
+        sim->canvas_d,
+        sim->k,
+        sim->t,
+        sim->theta_min
+    );
+
+    printf("\n--- PART 2-A ---\n");
+
+    run_part_2a_simulation(
+        sim->b,
+        sim->esc_ships,
+        sim->num_escorts
+    );
+
+    printf("\n--- PART 2-B ---\n");
+
+    run_part_2b_simulation(
+        sim->b,
+        sim->esc_ships,
+        sim->num_escorts
+    );
+
+    printf("\n--- PART 2-C ---\n");
+
+    run_part_2c_simulation(
+        sim->b,
+        sim->esc_ships,
+        sim->num_escorts
+    );
+
+    printf("\n====================================\n");
+    printf("       ALL SIMULATIONS COMPLETE      \n");
+    printf("====================================\n");
+}
+
+void instructions_menu(void)
+{
+    printf("\n");
+    printf("====================================\n");
+    printf("            INSTRUCTIONS             \n");
+    printf("====================================\n");
+
+    printf("\nADVANCED NAVAL BATTLE SIMULATOR\n\n");
+
+    printf("The simulator contains one Battleship and\n");
+    printf("multiple stationary Axis Escort ships.\n");
+
+    printf("\nMAIN OPTIONS:\n");
+    printf("1. Start Simulation\n");
+    printf("   Configure and execute the simulations.\n");
+
+    printf("\n2. View Instructions\n");
+    printf("   Display simulator instructions.\n");
+
+    printf("\n3. Simulation Statistics\n");
+    printf("   View saved simulation result files.\n");
+
+    printf("\n4. Exit\n");
+    printf("   Exit the simulator with confirmation.\n");
+
+    printf("\nSIMULATION PARTS:\n");
+    printf("Part 1-A : Basic attack simulation\n");
+    printf("Part 1-B : Battleship movement simulation\n");
+    printf("Part 1-C : Cumulative impact simulation\n");
+    printf("Part 2-A : Battleship attack strategy\n");
+    printf("Part 2-B : Continuous escort firing\n");
+    printf("Part 2-C : Degrading impact power\n");
+
+    printf("\nProjectile motion uses gravity = %.2f m/s^2.\n",
+           GRAVITY);
+
+    printf("\nPress ENTER to return to the menu...");
+    getchar();
+    getchar();
+}
+
+void show_file(const char *filename)
+{
+    FILE *file;
+    char line[256];
+
+    file = fopen(filename, "r");
+
+    if (file == NULL)
+    {
+        printf("\nFile '%s' does not exist yet.\n", filename);
+        return;
+    }
+
+    printf("\n====================================\n");
+    printf("FILE: %s\n", filename);
+    printf("====================================\n");
+
+    while (fgets(line, sizeof(line), file) != NULL)
+    {
+        printf("%s", line);
+    }
+
+    fclose(file);
+
+    printf("\n====================================\n");
+}
+
+void statistics_menu(void)
+{
+    int choice;
+
+    do
+    {
+        printf("\n");
+        printf("====================================\n");
+        printf("       SIMULATION STATISTICS         \n");
+        printf("====================================\n");
+        printf("1. Initial Battlefield\n");
+        printf("2. Part 1-A Results\n");
+        printf("3. Part 1-B Simulation 1\n");
+        printf("4. Part 1-B Simulation 2\n");
+        printf("5. Part 1-C Static Results\n");
+        printf("6. Part 1-C Simulation Results\n");
+        printf("7. Part 2-A Results\n");
+        printf("8. Part 2-B Results\n");
+        printf("9. Part 2-C Results\n");
+        printf("10. Return\n");
+        printf("====================================\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                show_file("initial_battlefield.txt");
+                break;
+
+            case 2:
+                show_file("final_battlefield_part1a.txt");
+                break;
+
+            case 3:
+                show_file("simulation1_results.txt");
+                break;
+
+            case 4:
+                show_file("simulation2_results.txt");
+                break;
+
+            case 5:
+                show_file("part1c_static_results.txt");
+                break;
+
+            case 6:
+                show_file("part1c_sim1_results.txt");
+                break;
+
+            case 7:
+                show_file("part2a_results.txt");
+                break;
+
+            case 8:
+                show_file("part2b_results.txt");
+                break;
+
+            case 9:
+                show_file("part2c_results.txt");
+                break;
+
+            case 10:
+                return;
+
+            default:
+                printf("\nInvalid choice.\n");
+        }
+
+    } while (1);
+}
+
+
+
+
+// ==========================================
+// MAIN FUNCTION
+// ==========================================
+int main(void)
+{
+    SimulationData sim;
+
+    sim.canvas_d = 0.0;
+    sim.num_escorts = 0;
+    sim.seed = (unsigned int)time(NULL);
+
+    sim.esc_ships = NULL;
+
+    sim.k = 0;
+    sim.t = 0;
+    sim.theta_min = 0.0;
+
+    sim.setup_complete = 0;
+
+    srand(sim.seed);
+
+    main_menu(&sim);
+
+    if (sim.esc_ships != NULL)
+    {
+        free(sim.esc_ships);
+    }
 
     return 0;
 }
-

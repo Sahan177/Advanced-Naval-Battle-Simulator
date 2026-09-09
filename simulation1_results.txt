@@ -1,4 +1,107 @@
 === PART 1-B: SIMULATION 1 RESULTS ===
 
-Step 1 | Battleship Pos: (460.17, 127.02)
-OUTCOME: Battleship SANK by Escort ID 3
+Step 1 | Battleship Pos: (394.89, 365.31)
+ -> Destroyed Escort ID 1 at dist 43.49
+ -> Destroyed Escort ID 2 at dist 120.80
+ -> Destroyed Escort ID 3 at dist 266.29
+ -> Destroyed Escort ID 4 at dist 432.52
+ -> Destroyed Escort ID 5 at dist 88.24
+
+Step 2 | Battleship Pos: (353.08, 495.79)
+
+Step 3 | Battleship Pos: (81.23, 289.49)
+
+Step 4 | Battleship Pos: (348.17, 466.08)
+
+Step 5 | Battleship Pos: (267.82, 432.63)
+
+Step 6 | Battleship Pos: (269.80, 159.72)
+
+Step 7 | Battleship Pos: (418.71, 181.72)
+
+Step 8 | Battleship Pos: (52.86, 83.83)
+
+Step 9 | Battleship Pos: (434.22, 193.15)
+
+Step 10 | Battleship Pos: (375.27, 32.44)
+
+Step 11 | Battleship Pos: (269.27, 401.57)
+
+Step 12 | Battleship Pos: (171.45, 162.30)
+
+Step 13 | Battleship Pos: (352.53, 448.31)
+
+Step 14 | Battleship Pos: (15.93, 283.48)
+
+Step 15 | Battleship Pos: (394.16, 254.68)
+
+Step 16 | Battleship Pos: (321.77, 289.05)
+
+Step 17 | Battleship Pos: (120.00, 174.85)
+
+Step 18 | Battleship Pos: (284.84, 201.23)
+
+Step 19 | Battleship Pos: (464.34, 133.01)
+
+Step 20 | Battleship Pos: (167.31, 232.16)
+
+Step 21 | Battleship Pos: (65.64, 437.11)
+
+Step 22 | Battleship Pos: (391.89, 484.35)
+
+Step 23 | Battleship Pos: (118.83, 444.75)
+
+Step 24 | Battleship Pos: (68.18, 53.05)
+
+Step 25 | Battleship Pos: (137.89, 443.45)
+
+Step 26 | Battleship Pos: (85.49, 407.16)
+
+Step 27 | Battleship Pos: (345.03, 256.94)
+
+Step 28 | Battleship Pos: (69.46, 197.55)
+
+Step 29 | Battleship Pos: (205.26, 85.39)
+
+Step 30 | Battleship Pos: (481.04, 99.42)
+
+Step 31 | Battleship Pos: (340.08, 302.80)
+
+Step 32 | Battleship Pos: (388.47, 460.08)
+
+Step 33 | Battleship Pos: (477.65, 173.31)
+
+Step 34 | Battleship Pos: (161.30, 442.00)
+
+Step 35 | Battleship Pos: (306.33, 328.61)
+
+Step 36 | Battleship Pos: (174.16, 371.97)
+
+Step 37 | Battleship Pos: (265.72, 66.05)
+
+Step 38 | Battleship Pos: (356.31, 384.55)
+
+Step 39 | Battleship Pos: (10.80, 424.49)
+
+Step 40 | Battleship Pos: (437.60, 148.69)
+
+Step 41 | Battleship Pos: (367.95, 23.10)
+
+Step 42 | Battleship Pos: (55.85, 212.97)
+
+Step 43 | Battleship Pos: (280.04, 125.31)
+
+Step 44 | Battleship Pos: (410.53, 485.30)
+
+Step 45 | Battleship Pos: (210.70, 391.57)
+
+Step 46 | Battleship Pos: (84.72, 50.78)
+
+Step 47 | Battleship Pos: (194.37, 473.19)
+
+Step 48 | Battleship Pos: (10.85, 172.02)
+
+Step 49 | Battleship Pos: (146.50, 172.16)
+
+Step 50 | Battleship Pos: (114.02, 452.83)
+OUTCOME: Battleship SURVIVED all steps.

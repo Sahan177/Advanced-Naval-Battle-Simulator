@@ -1,4 +1,107 @@
-=== PART 1-B: SIMULATION 2 RESULTS (Jammed after step 23) ===
+=== PART 1-B: SIMULATION 2 RESULTS (Jammed after step 20) ===
 
-Step 1 | Pos: (460.17, 127.02) | Range: [0.00, 25484.20]
-OUTCOME: Battleship SANK by Escort ID 1
+Step 1 | Pos: (394.89, 365.31) | Minimum Angle: 0.00
+ -> Destroyed Escort ID 1 | Distance: 43.49 | Velocity: 156.35 | Angle: 0.50
+ -> Destroyed Escort ID 2 | Distance: 120.80 | Velocity: 260.58 | Angle: 0.50
+ -> Destroyed Escort ID 3 | Distance: 266.29 | Velocity: 386.89 | Angle: 0.50
+ -> Destroyed Escort ID 4 | Distance: 432.52 | Velocity: 493.07 | Angle: 0.50
+ -> Destroyed Escort ID 5 | Distance: 88.24 | Velocity: 222.71 | Angle: 0.50
+
+Step 2 | Pos: (353.08, 495.79) | Minimum Angle: 0.00
+
+Step 3 | Pos: (81.23, 289.49) | Minimum Angle: 0.00
+
+Step 4 | Pos: (348.17, 466.08) | Minimum Angle: 0.00
+
+Step 5 | Pos: (267.82, 432.63) | Minimum Angle: 0.00
+
+Step 6 | Pos: (269.80, 159.72) | Minimum Angle: 0.00
+
+Step 7 | Pos: (418.71, 181.72) | Minimum Angle: 0.00
+
+Step 8 | Pos: (52.86, 83.83) | Minimum Angle: 0.00
+
+Step 9 | Pos: (434.22, 193.15) | Minimum Angle: 0.00
+
+Step 10 | Pos: (375.27, 32.44) | Minimum Angle: 0.00
+
+Step 11 | Pos: (269.27, 401.57) | Minimum Angle: 0.00
+
+Step 12 | Pos: (171.45, 162.30) | Minimum Angle: 0.00
+
+Step 13 | Pos: (352.53, 448.31) | Minimum Angle: 0.00
+
+Step 14 | Pos: (15.93, 283.48) | Minimum Angle: 0.00
+
+Step 15 | Pos: (394.16, 254.68) | Minimum Angle: 0.00
+
+Step 16 | Pos: (321.77, 289.05) | Minimum Angle: 0.00
+
+Step 17 | Pos: (120.00, 174.85) | Minimum Angle: 0.00
+
+Step 18 | Pos: (284.84, 201.23) | Minimum Angle: 0.00
+
+Step 19 | Pos: (464.34, 133.01) | Minimum Angle: 0.00
+
+Step 20 | Pos: (167.31, 232.16) | Minimum Angle: 0.00
+
+Step 21 | Pos: (65.64, 437.11) | Minimum Angle: 21.00
+
+Step 22 | Pos: (391.89, 484.35) | Minimum Angle: 21.00
+
+Step 23 | Pos: (118.83, 444.75) | Minimum Angle: 21.00
+
+Step 24 | Pos: (68.18, 53.05) | Minimum Angle: 21.00
+
+Step 25 | Pos: (137.89, 443.45) | Minimum Angle: 21.00
+
+Step 26 | Pos: (85.49, 407.16) | Minimum Angle: 21.00
+
+Step 27 | Pos: (345.03, 256.94) | Minimum Angle: 21.00
+
+Step 28 | Pos: (69.46, 197.55) | Minimum Angle: 21.00
+
+Step 29 | Pos: (205.26, 85.39) | Minimum Angle: 21.00
+
+Step 30 | Pos: (481.04, 99.42) | Minimum Angle: 21.00
+
+Step 31 | Pos: (340.08, 302.80) | Minimum Angle: 21.00
+
+Step 32 | Pos: (388.47, 460.08) | Minimum Angle: 21.00
+
+Step 33 | Pos: (477.65, 173.31) | Minimum Angle: 21.00
+
+Step 34 | Pos: (161.30, 442.00) | Minimum Angle: 21.00
+
+Step 35 | Pos: (306.33, 328.61) | Minimum Angle: 21.00
+
+Step 36 | Pos: (174.16, 371.97) | Minimum Angle: 21.00
+
+Step 37 | Pos: (265.72, 66.05) | Minimum Angle: 21.00
+
+Step 38 | Pos: (356.31, 384.55) | Minimum Angle: 21.00
+
+Step 39 | Pos: (10.80, 424.49) | Minimum Angle: 21.00
+
+Step 40 | Pos: (437.60, 148.69) | Minimum Angle: 21.00
+
+Step 41 | Pos: (367.95, 23.10) | Minimum Angle: 21.00
+
+Step 42 | Pos: (55.85, 212.97) | Minimum Angle: 21.00
+
+Step 43 | Pos: (280.04, 125.31) | Minimum Angle: 21.00
+
+Step 44 | Pos: (410.53, 485.30) | Minimum Angle: 21.00
+
+Step 45 | Pos: (210.70, 391.57) | Minimum Angle: 21.00
+
+Step 46 | Pos: (84.72, 50.78) | Minimum Angle: 21.00
+
+Step 47 | Pos: (194.37, 473.19) | Minimum Angle: 21.00
+
+Step 48 | Pos: (10.85, 172.02) | Minimum Angle: 21.00
+
+Step 49 | Pos: (146.50, 172.16) | Minimum Angle: 21.00
+
+Step 50 | Pos: (114.02, 452.83) | Minimum Angle: 21.00
+OUTCOME: Battleship SURVIVED all steps.

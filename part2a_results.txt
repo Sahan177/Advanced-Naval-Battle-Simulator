@@ -1,12 +1,12 @@
 === PART 2-A: BATTLESHIP COOLDOWN & STRATEGY ===
 Battleship Firing Cooldown (T_B): 10.00 seconds
 
-Optimal Target Order:
-Order 1 | Time: 0.00s | Destroyed Escort ID 1 (Type E_C)
-Order 2 | Time: 10.00s | Destroyed Escort ID 2 (Type E_B)
-Order 3 | Time: 20.00s | Destroyed Escort ID 5 (Type E_D)
-Order 4 | Time: 30.00s | Destroyed Escort ID 4 (Type E_E)
-Order 5 | Time: 40.00s | Destroyed Escort ID 3 (Type E_E)
+Calculated Target Order:
+Order 1 | Time: 0.00s | Destroyed Escort ID 2 (Type E_A)
+Order 2 | Time: 10.00s | Destroyed Escort ID 3 (Type E_A)
+Order 3 | Time: 20.00s | Destroyed Escort ID 5 (Type E_A)
+Order 4 | Time: 30.00s | Destroyed Escort ID 4 (Type E_C)
+Order 5 | Time: 40.00s | Destroyed Escort ID 1 (Type E_C)
 
 Total Engagement Duration: 50.00s
 Battleship Cumulative Damage: 8.00%
