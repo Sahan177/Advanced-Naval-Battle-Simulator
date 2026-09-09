@@ -1,0 +1,8 @@
+=== PART 1-C (STATIC) RESULTS ===
+OUTCOME: Battleship SURVIVED
+Cumulative Damage: 8.00%
+Destroyed Escort ID 1 at distance 88.35
+Destroyed Escort ID 2 at distance 232.96
+Destroyed Escort ID 3 at distance 516.94
+Destroyed Escort ID 4 at distance 430.59
+Destroyed Escort ID 5 at distance 402.71

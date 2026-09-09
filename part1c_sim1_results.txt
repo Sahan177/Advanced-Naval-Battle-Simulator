@@ -1,0 +1,3 @@
+=== PART 1-C: SIMULATION 1 (Cumulative Damage) ===
+OUTCOME: SURVIVED
+Final Cumulative Damage: 0.00%

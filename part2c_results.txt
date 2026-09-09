@@ -1,0 +1,7 @@
+=== PART 2-C: IMPACT POWER DEGRADATION ===
+
+Escort ID 3 | Type E_E | Gamma 0.150 | Firing Count 1 | Current Impact 4.00% | Total Damage 4.00%
+Escort ID 4 | Type E_E | Gamma 0.150 | Firing Count 1 | Current Impact 4.00% | Total Damage 8.00%
+
+OUTCOME: Battleship SURVIVED
+Final Cumulative Damage: 8.00%
